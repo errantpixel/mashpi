@@ -16,9 +16,9 @@ GPIO.output(pump1Pin, GPIO.LOW)
 GPIO.setup(pump2Pin, GPIO.OUT)
 GPIO.output(pump2Pin, GPIO.LOW)
 
-# Define some helper functions:
 
-# This callback will be bound to the LED toggle and Beep button:
+# Set up the callbacks for the buttons/toggles
+
 def press_callback(obj):
 	if obj.text == 'Pump 1':
 		if obj.state == "down":
@@ -35,6 +35,7 @@ def press_callback(obj):
 			print ("button off")
 			GPIO.output(pump2Pin, GPIO.LOW)
 
+#Do the thing with the stuff
 
 class MyApp(App):
 
