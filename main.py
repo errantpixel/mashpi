@@ -28,10 +28,10 @@ def press_callback(obj):
 			GPIO.output(pump1Pin, GPIO.HIGH)
 		else:
 			print ("button off")
-			GPIO.output(pump1Pin, GPIO.LOW)	
+			GPIO.output(pump1Pin, GPIO.LOW)
 	if obj.text == 'Pump 2':
 		if obj.state == "down":
-			print ("button on")			
+			print ("button on")
 			GPIO.output(pump2Pin, GPIO.HIGH)
 		else:
 			print ("button off")
@@ -52,7 +52,7 @@ class MyApp(App):
 		# Create the rest of the UI objects (and bind them to callbacks, if necessary):
 		Pump1Control = ToggleButton(text="Pump 1")
 		Pump1Control.bind(on_press=press_callback)
-		Pump2Control = Button(text="Pump 2")
+		Pump2Control = ToggleButton(text="Pump 2")
 		Pump2Control.bind(on_press=press_callback)
 		wimg = Image(source='logo.png')
 
