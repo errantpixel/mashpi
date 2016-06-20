@@ -38,14 +38,6 @@ def press_callback(obj):
 			GPIO.output(pump2Pin, GPIO.LOW)
 
 
-# Modify the Button Class to update according to GPIO input:
-class InputButton(Button):
-	def update(self, dt):
-		if GPIO.input(buttonPin) == True:
-			self.state = 'normal'
-		else:
-			self.state = 'down'			
-
 class MyApp(App):
 
 	def build(self):
@@ -56,12 +48,6 @@ class MyApp(App):
 		with layout.canvas.before:
 			Color(.2,.2,.2,1)
 			self.rect = Rectangle(size=(800,600), pos=layout.pos)
-
-		# Instantiate the first UI object (the GPIO input indicator):
-		inputDisplay = InputButton(text="Input")
-
-		# Schedule the update of the state of the GPIO input button:
-		Clock.schedule_interval(inputDisplay.update, 1.0/10.0)
 
 		# Create the rest of the UI objects (and bind them to callbacks, if necessary):
 		Pump1Control = ToggleButton(text="Pump 1")
@@ -74,7 +60,6 @@ class MyApp(App):
 		layout.add_widget(wimg)
 		layout.add_widget(Pump1Control)
 		layout.add_widget(Pump2Control)
-
 
 		return layout
 
