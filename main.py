@@ -1,0 +1,85 @@
+import kivy
+from kivy.app import App
+from kivy.uix.button import Button
+from kivy.uix.togglebutton import ToggleButton
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.image import Image
+from kivy.clock import Clock
+from kivy.graphics import Color, Rectangle
+
+import RPi.GPIO as GPIO
+
+# Set up GPIO:
+pump1Pin = 17
+pump2Pin = 27
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(pump1Pin, GPIO.OUT)
+GPIO.output(pump1Pin, GPIO.LOW)
+GPIO.setup(pump2Pin, GPIO.OUT)
+GPIO.output(pump2Pin, GPIO.LOW)
+
+# Define some helper functions:
+
+# This callback will be bound to the LED toggle and Beep button:
+def press_callback(obj):
+	if obj.text == 'Pump 1':
+		if obj.state == "down":
+			print ("button on")
+			GPIO.output(pump1Pin, GPIO.HIGH)
+		else:
+			print ("button off")
+			GPIO.output(pump1Pin, GPIO.LOW)	
+	if obj.text == 'Pump 2':
+		if obj.state == "down":
+			print ("button on")			
+			GPIO.output(pump2Pin, GPIO.HIGH)
+		else:
+			print ("button off")
+			GPIO.output(pump2Pin, GPIO.LOW)
+
+
+# Modify the Button Class to update according to GPIO input:
+class InputButton(Button):
+	def update(self, dt):
+		if GPIO.input(buttonPin) == True:
+			self.state = 'normal'
+		else:
+			self.state = 'down'			
+
+class MyApp(App):
+
+	def build(self):
+		# Set up the layout:
+		layout = GridLayout(cols=5, spacing=30, padding=30, row_default_height=150)
+
+		# Make the background gray:
+		with layout.canvas.before:
+			Color(.2,.2,.2,1)
+			self.rect = Rectangle(size=(800,600), pos=layout.pos)
+
+		# Instantiate the first UI object (the GPIO input indicator):
+		inputDisplay = InputButton(text="Input")
+
+		# Schedule the update of the state of the GPIO input button:
+		Clock.schedule_interval(inputDisplay.update, 1.0/10.0)
+
+		# Create the rest of the UI objects (and bind them to callbacks, if necessary):
+		Pump1Control = ToggleButton(text="Pump 1")
+		Pump1Control.bind(on_press=press_callback)
+		Pump2Control = Button(text="Pump 2")
+		Pump2Control.bind(on_press=press_callback)
+		wimg = Image(source='logo.png')
+		speedSlider = Slider(orientation='vertical', min=1, max=30, value=speed)
+		speedSlider.bind(on_touch_down=update_speed, on_touch_move=update_speed)
+
+		# Add the UI elements to the layout:
+		layout.add_widget(wimg)
+		layout.add_widget(Pump1Control)
+		layout.add_widget(Pump2Control)
+		layout.add_widget(beepButton)
+
+
+		return layout
+
+if __name__ == '__main__':
+	MyApp().run()
