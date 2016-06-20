@@ -48,7 +48,7 @@ class MyApp(App):
 			self.rect = Rectangle(size=(800,600), pos=layout.pos)
 
 		# Create the rest of the UI objects (and bind them to callbacks, if necessary):
-		Pump1Control = ToggleButton(text="Pump 1", background_color(1,0,0,1))
+		Pump1Control = ToggleButton(text="Pump 1")
 		Pump1Control.bind(on_press=press_callback)
 		Pump2Control = ToggleButton(text="Pump 2")
 		Pump2Control.bind(on_press=press_callback)
