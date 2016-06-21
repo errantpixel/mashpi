@@ -75,6 +75,11 @@ class Temp_Sensors(GridLayout):
 		self.blk_temp = blk_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 		self.chl_temp = chl_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 
+		mlt_temp = StringProperty()
+		hlt_temp = StringProperty()
+		blk_temp = StringProperty()
+		chl_temp = StringProperty()
+	
 # Do the thing with the stuff
 
 class MyApp(App):
