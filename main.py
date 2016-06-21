@@ -11,6 +11,7 @@ import datetime
 
 import kivy
 from kivy.app import App
+from kivy.clock import Clock
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
@@ -65,11 +66,14 @@ hlt_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007c2aacc")
 blk_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007350eb1")
 chl_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "0315718597ff")
 
-# To get temp from a sensor, set the following
-mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-hlt_temp = hlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-blk_temp = blk_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-chl_temp = chl_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+# To get temp from a sensor (once), set the following function
+
+class Temp_Sensors(BoxLayout):
+	def update_temp(self, dt):
+		mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+		hlt_temp = hlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+		blk_temp = blk_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+		chl_temp = chl_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 
 # Do the thing with the stuff
 
@@ -89,14 +93,17 @@ class MyApp(App):
 		Pump1Control.bind(on_press=press_callback)
 		Pump2Control = ToggleButton(text="Pump 2")
 		Pump2Control.bind(on_press=press_callback)
-		mltLabel = Label(text="[b]" + str(mlt_temp) + "[/b]" )
+		mltLabel = Label(text= str(mlt_temp) )
 		wimg = Image(source='logo.png')
+		sensors = Temp_Sensors()
+		Clock.schedule_interval(sensors.update, 1.0)
 
 		# Add the UI elements to the layout:
 		layout.add_widget(wimg)
 		layout.add_widget(Pump1Control)
 		layout.add_widget(Pump2Control)
-		layout.add_widget(mltLabel)
+		layout.add_widget(sensors)
+
 
 		return layout
 
