@@ -70,16 +70,11 @@ chl_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "0315718597ff")
 # To get temp from a sensor (once), set the following function
 
 class Temp_Sensors(GridLayout):
-	def update(self, dt):
-		self.mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-		self.hlt_temp = hlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-		self.blk_temp = blk_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-		self.chl_temp = chl_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-
-		mlt_temp = StringProperty()
-		hlt_temp = StringProperty()
-		blk_temp = StringProperty()
-		chl_temp = StringProperty()
+	def update(dt):
+		mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+		hlt_temp = hlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+		blk_temp = blk_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+		chl_temp = chl_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 
 # Do the thing with the stuff
 
@@ -100,11 +95,11 @@ class MyApp(App):
 		Pump2Control = ToggleButton(text="Pump 2")
 		Pump2Control.bind(on_press=press_callback)
 		wimg = Image(source='logo.png')
-		sensors = Temp_Sensors()
-		Clock.schedule_interval(sensors.update, 3.0)
+		mltLabel = Label(text=str(mlt_temp))
+		Clock.schedule_interval(sensors.update, 5.0)
 
 		# Add the UI elements to the layout:
-		layout.add_widget(sensors)
+		layout.add_widget(mltLabel)
 		layout.add_widget(wimg)
 		layout.add_widget(Pump1Control)
 		layout.add_widget(Pump2Control)
