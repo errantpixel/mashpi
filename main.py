@@ -68,13 +68,8 @@ blk_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007350eb1")
 chl_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "0315718597ff")
 
 # To get temp from a sensor (once), set the following function
+# mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 
-class Temp_Sensors(GridLayout):
-	def update(dt):
-		self.mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-		self.hlt_temp = hlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-		self.blk_temp = blk_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-		self.chl_temp = chl_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 
 # Do the thing with the stuff
 
@@ -95,12 +90,8 @@ class MyApp(App):
 		Pump2Control = ToggleButton(text="Pump 2")
 		Pump2Control.bind(on_press=press_callback)
 		wimg = Image(source='logo.png')
-		sensors = Temp_Sensors()
-		mltLabel = Label(text=str(mlt_temp))
-		Clock.schedule_interval(sensors.update, 5.0)
 
 		# Add the UI elements to the layout:
-		layout.add_widget(mltLabel)
 		layout.add_widget(wimg)
 		layout.add_widget(Pump1Control)
 		layout.add_widget(Pump2Control)
