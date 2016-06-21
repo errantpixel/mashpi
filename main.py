@@ -95,6 +95,7 @@ class MyApp(App):
 		Pump2Control = ToggleButton(text="Pump 2")
 		Pump2Control.bind(on_press=press_callback)
 		wimg = Image(source='logo.png')
+		sensors = Temp_Sensors()
 		mltLabel = Label(text=str(mlt_temp))
 		Clock.schedule_interval(sensors.update, 5.0)
 
