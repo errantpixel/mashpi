@@ -93,7 +93,6 @@ class MyApp(App):
 		Pump1Control.bind(on_press=press_callback)
 		Pump2Control = ToggleButton(text="Pump 2")
 		Pump2Control.bind(on_press=press_callback)
-		mltLabel = Label(text= str(mlt_temp) )
 		wimg = Image(source='logo.png')
 		sensors = Temp_Sensors()
 		Clock.schedule_interval(sensors.update, 1.0)
