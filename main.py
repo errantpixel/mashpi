@@ -68,7 +68,7 @@ chl_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "0315718597ff")
 
 # To get temp from a sensor (once), set the following function
 
-class Temp_Sensors(GridLayout):
+class Temp_Sensors():
 	def update(self, dt):
 		self.mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 		self.hlt_temp = hlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
@@ -95,13 +95,13 @@ class MyApp(App):
 		Pump2Control.bind(on_press=press_callback)
 		wimg = Image(source='logo.png')
 		sensors = Temp_Sensors()
-		Clock.schedule_interval(sensors.update, 1.0)
+		Clock.schedule_interval(sensors.update, 3.0)
 
 		# Add the UI elements to the layout:
+		layout.add_widget(sensors)
 		layout.add_widget(wimg)
 		layout.add_widget(Pump1Control)
 		layout.add_widget(Pump2Control)
-		layout.add_widget(sensors)
 
 
 		return layout
