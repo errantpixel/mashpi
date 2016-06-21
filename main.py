@@ -58,30 +58,30 @@ def press_callback(obj):
 # chl = post-chiller (NPT threaded) sensor
 #
 # Note: Sensor values will change if device replaced. Update to match environment.
+# #
 #
-
-from w1thermsensor import W1ThermSensor
-
-mlt_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007c157ee")
-hlt_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007c2aacc")
-blk_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007350eb1")
-chl_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "0315718597ff")
-
-# Set some defaults
-
-mlt_temp = 42
-hlt_temp = 42
-blk_temp = 42
-chl_temp = 42
-
-# To get temp from a sensor (once), set the following function
-# mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-
-def update_temps(dt):
-	mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-	hlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-	blk_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
-	chl_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+# from w1thermsensor import W1ThermSensor
+#
+# mlt_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007c157ee")
+# hlt_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007c2aacc")
+# blk_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007350eb1")
+# chl_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "0315718597ff")
+#
+# # Set some defaults
+#
+# mlt_temp = 42
+# hlt_temp = 42
+# blk_temp = 42
+# chl_temp = 42
+#
+# # To get temp from a sensor (once), set the following function
+# # mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+#
+# def update_temps(dt):
+# 	mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+# 	hlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+# 	blk_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
+# 	chl_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 
 # Do the thing with the stuff
 
@@ -97,7 +97,7 @@ class MyApp(App):
 			self.rect = Rectangle(size=(800,600), pos=layout.pos)
 
 		# Set up the refresh/Clock
-		Clock.schedule_interval(update_temps, 5.0)
+		# Clock.schedule_interval(update_temps, 5.0)
 
 		# Create the rest of the UI objects (and bind them to callbacks, if necessary):
 		Pump1Control = ToggleButton(text="Pump 1")
@@ -105,13 +105,13 @@ class MyApp(App):
 		Pump2Control = ToggleButton(text="Pump 2")
 		Pump2Control.bind(on_press=press_callback)
 		wimg = Image(source='logo.png')
-		labelMLT = Label(text=str(mlt_temp))
+		# labelMLT = Label(text=str(mlt_temp))
 
 		# Add the UI elements to the layout:
 		layout.add_widget(wimg)
 		layout.add_widget(Pump1Control)
 		layout.add_widget(Pump2Control)
-		layout.add_widget(labelMLT)
+		# layout.add_widget(labelMLT)
 
 
 		return layout
