@@ -68,7 +68,7 @@ chl_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "0315718597ff")
 
 # To get temp from a sensor (once), set the following function
 
-class Temp_Sensors(BoxLayout):
+class Temp_Sensors(GridLayout):
 	def update_temp(self, dt):
 		mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 		hlt_temp = hlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
