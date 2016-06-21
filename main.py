@@ -67,6 +67,13 @@ hlt_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007c2aacc")
 blk_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007350eb1")
 chl_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "0315718597ff")
 
+# Set some defaults
+
+mlt_temp = 42
+hlt_temp = 42
+blk_temp = 42
+chl_temp = 42
+
 # To get temp from a sensor (once), set the following function
 # mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 
