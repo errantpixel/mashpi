@@ -77,7 +77,7 @@ chl_temp = 42
 # To get temp from a sensor (once), set the following function
 # mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 
-def update_temps():
+def update_temps(dt):
 	mlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 	hlt_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
 	blk_temp = mlt_sensor.get_temperature(W1ThermSensor.DEGREES_F)
