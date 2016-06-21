@@ -17,6 +17,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle
+from kivy.properties import StringProperty
 
 # GPIO Imports
 
@@ -79,7 +80,7 @@ class Temp_Sensors(GridLayout):
 		hlt_temp = StringProperty()
 		blk_temp = StringProperty()
 		chl_temp = StringProperty()
-	
+
 # Do the thing with the stuff
 
 class MyApp(App):
