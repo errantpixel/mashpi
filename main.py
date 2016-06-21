@@ -1,9 +1,22 @@
+# mashpi
+# 2016.06.20 - chorton@gmail.com
+#
+#
+# Core Stuff
+import os, os.path, sys
+import time
+import datetime
+
+# Kivy Imports
+
 import kivy
 from kivy.app import App
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
 from kivy.graphics import Color, Rectangle
+
+# GPIO Imports
 
 import RPi.GPIO as GPIO
 
@@ -35,7 +48,29 @@ def press_callback(obj):
 			print ("button off")
 			GPIO.output(pump2Pin, GPIO.LOW)
 
-#Do the thing with the stuff
+# w1 sensors.
+# mlt = mashtun temp sensor
+# hlt = Hot Liquor Tank sensor
+# blk = Boil Kettle sensor
+# chl = post-chiller (NPT threaded) sensor
+#
+# Note: Sensor values will change if device replaced. Update to match environment.
+#
+
+from w1thermsensor import W1ThermSensor
+
+mlt_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007c157ee")
+hlt_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007c2aacc")
+blk_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "000007350eb1")
+chl_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "0315718597ff")
+
+# To get temp from a sensor, set the following
+mlt_temp = mlt_sensor.get_temperatire(W1ThermSensor.DEGREES_F)
+hlt_temp = hlt_sensor.get_temperatire(W1ThermSensor.DEGREES_F)
+blk_temp = blk_sensor.get_temperatire(W1ThermSensor.DEGREES_F)
+chl_temp = chl_sensor.get_temperatire(W1ThermSensor.DEGREES_F)
+
+# Do the thing with the stuff
 
 class MyApp(App):
 
@@ -53,12 +88,14 @@ class MyApp(App):
 		Pump1Control.bind(on_press=press_callback)
 		Pump2Control = ToggleButton(text="Pump 2")
 		Pump2Control.bind(on_press=press_callback)
+		mltLabel = Label(text "[b]" + str(mlt_temp) + "[/b]" )
 		wimg = Image(source='logo.png')
 
 		# Add the UI elements to the layout:
 		layout.add_widget(wimg)
 		layout.add_widget(Pump1Control)
 		layout.add_widget(Pump2Control)
+		layout.add_widget(mltLabel)
 
 		return layout
 
