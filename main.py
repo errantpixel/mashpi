@@ -14,6 +14,7 @@ from kivy.app import App
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
+from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle
 
 # GPIO Imports
