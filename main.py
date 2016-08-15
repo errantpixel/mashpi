@@ -89,7 +89,7 @@ class MyApp(App):
 
 	def build(self):
 		# Set up the layout:
-		layout = GridLayout(cols=5, spacing=30, padding=30, row_default_height=150)
+		layout = GridLayout(cols=3)
 
 		# Make the background gray:
 		with layout.canvas.before:
@@ -108,8 +108,18 @@ class MyApp(App):
 		# labelMLT = Label(text=str(mlt_temp))
 
 		# Add the UI elements to the layout:
-		layout.add_widget(wimg)
+                layout.add_widget(Label(text="HLT: 170.4",
+					font_size=52))
+                layout.add_widget(Label(text=''))
+                layout.add_widget(Label(text="MLT: 154.3",
+					font_size=52))
+                layout.add_widget(Label(text="Boil: 212.0",
+					font_size=52))
+                layout.add_widget(Label(text=''))
+                layout.add_widget(Label(text="Chill: 76.5",
+					font_size=52))
 		layout.add_widget(Pump1Control)
+		layout.add_widget(wimg)
 		layout.add_widget(Pump2Control)
 		# layout.add_widget(labelMLT)
 
